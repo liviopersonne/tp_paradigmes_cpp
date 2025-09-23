@@ -1,7 +1,7 @@
 #include "media.h"
 
-std::ostream &operator<<(std::ostream &os, const Media &media)
+std::ostream &Media::print(std::ostream &os) const
 {
-    os << "Media<name:" << media.getName() << ", path:" << media.getFilePath() << ">";
+    os << "Media<name:" << this->getName() << ", path:" << this->getFilePath() << ">";
     return os;
 }

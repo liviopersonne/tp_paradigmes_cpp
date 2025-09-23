@@ -29,5 +29,29 @@ int main(int argc, const char *argv[])
     // cat->play();
     // snk->play();
 
+    /* Etape 5 */
+    Image *cat = new Image("assets/cat.png", "cat", 225, 208);
+    Video *snk = new Video("assets/snk.mp4", "snk", 34);
+    Media **medias = new Media *[2];
+    medias[0] = cat;
+    medias[1] = snk;
+
+    for (int i = 0; i < 2; i++)
+    {
+        Media *media = medias[i];
+        std::cout << *media << std::endl;
+    }
+
+    // C'est le polymorphisme qui permet cela
+    // Il est nécessaire de créer une méthode abstraite dans Media pour permettre le polymorphisme
+    // Ces objets sont de type Media*, il faut des pointeurs vers ces objets
+
+    // Free the memory
+    for (int i = 0; i < 2; i++)
+    {
+        delete medias[i];
+    }
+    delete[] medias;
+
     return 0;
 }

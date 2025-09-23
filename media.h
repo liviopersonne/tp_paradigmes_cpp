@@ -20,7 +20,11 @@ public:
     void setName(std::string n) { name = n; }
 
     // Operator redefinition to print an instance
-    friend std::ostream &operator<<(std::ostream &os, const Media &media);
+    friend std::ostream &operator<<(std::ostream &os, const Media &media)
+    {
+        return media.print(os);
+    };
+    virtual std::ostream &print(std::ostream &os) const;
     virtual void play() const = 0;
 };
 

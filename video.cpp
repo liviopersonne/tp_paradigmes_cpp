@@ -1,8 +1,8 @@
 #include "video.h"
 
-std::ostream &operator<<(std::ostream &os, const Video &video)
+std::ostream &Video::print(std::ostream &os) const
 {
-    os << "Video<name:" << video.getName() << ", path:" << video.getFilePath()
-       << ", duration:" << video.duration << ">";
+    os << "Video<name:" << getName() << ", path:" << getFilePath()
+       << ", duration:" << duration << ">";
     return os;
 }

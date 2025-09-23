@@ -11,12 +11,12 @@ private:
 
 public:
     Image(std::string filePath, std::string name, int width, int height) : Media(filePath, name), width(width), height(height) {}
-    Image() : Media() {}
+    Image() {}
     int getWidth() const { return width; }
     int getHeight() const { return height; }
     void setWidth(int w) { width = w; }
     void setHeight(int h) { height = h; }
-    friend std::ostream &operator<<(std::ostream &os, const Image &image);
+    std::ostream &print(std::ostream &os) const override;
 
     void play() const
     {

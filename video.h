@@ -10,10 +10,10 @@ private:
 
 public:
     Video(std::string filePath, std::string name, int duration) : Media(filePath, name), duration(duration) {}
-    Video() : Media() {}
+    Video() {}
     int getDuration() const { return duration; }
     void setDuration(int d) { duration = d; }
-    friend std::ostream &operator<<(std::ostream &os, const Video &video);
+    std::ostream &print(std::ostream &os) const override;
 
     void play() const
     {

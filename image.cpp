@@ -1,8 +1,8 @@
 #include "image.h"
 
-std::ostream &operator<<(std::ostream &os, const Image &image)
+std::ostream &Image::print(std::ostream &os) const
 {
-    os << "Image<name:" << image.getName() << ", path:" << image.getFilePath()
-       << ", width:" << image.width << ", height:" << image.height << ">";
+    os << "Image<name:" << getName() << ", path:" << getFilePath()
+       << ", width:" << width << ", height:" << height << ">";
     return os;
 }
