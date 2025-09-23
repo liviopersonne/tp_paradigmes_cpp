@@ -4,10 +4,12 @@
 //
 
 #include <iostream>
-using namespace std;
+#include "media.h"
 
 int main(int argc, const char *argv[])
 {
-    std::cout << "Hello brave new world" << std::endl;
+    Media media1 = Media("path/to/file/media1.mp3", "media1");
+
+    std::cout << media1 << std::endl;
     return 0;
 }

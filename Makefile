@@ -9,12 +9,12 @@
 #
 # Nom du programme
 #
-PROG = myprog
+PROG = coucou
 
 #
 # Fichiers sources (NE PAS METTRE les .h ni les .o seulement les .cpp)
 #
-SOURCES = MyClass.cpp main.cpp
+SOURCES = media.cpp main.cpp
 
 #
 # Fichiers objets (ne pas modifier sauf si l'extension n'est pas .cpp)
