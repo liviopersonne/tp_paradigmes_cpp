@@ -1,0 +1,4 @@
+*.o
+.vscode
+depend-coucou
+coucou
