@@ -19,3 +19,13 @@ void Film::setChapters(const unsigned int newChapterCount, unsigned int *const n
     chapters = newChapters;
     chapterCount = newChapterCount;
 }
+
+Film *Film::copy() const
+{
+    unsigned int *chaptersCopy = new unsigned int[chapterCount];
+    for (int i = 0; i < chapterCount; i++)
+    {
+        chaptersCopy[i] = chapters[i];
+    }
+    return new Film(getFilePath(), getName(), getDuration(), chapterCount, chaptersCopy);
+}
