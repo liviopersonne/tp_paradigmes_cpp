@@ -11,20 +11,24 @@ private:
     std::string name{};
 
 public:
-    Media(std::string filePath, std::string name) : filePath(filePath), name(name) {}
+    Media(const std::string filePath, const std::string name) : filePath(filePath), name(name) {}
     Media() {}
     virtual ~Media() {}
     std::string getFilePath() const { return filePath; }
     std::string getName() const { return name; }
-    void setFilePath(std::string p) { filePath = p; }
-    void setName(std::string n) { name = n; }
+    void setFilePath(const std::string p) { filePath = p; }
+    void setName(const std::string n) { name = n; }
 
     // Operator redefinition to print an instance
     friend std::ostream &operator<<(std::ostream &os, const Media &media)
     {
         return media.print(os);
     };
-    virtual std::ostream &print(std::ostream &os) const;
+    virtual std::ostream &print(std::ostream &os) const
+    {
+        os << "Media<name:" << this->getName() << ", path:" << this->getFilePath() << ">";
+        return os;
+    };
     virtual void play() const = 0;
 };
 

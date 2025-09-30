@@ -7,6 +7,7 @@
 #include "media.h"
 #include "image.h"
 #include "video.h"
+#include "film.h"
 
 int main(int argc, const char *argv[])
 {
@@ -29,9 +30,14 @@ int main(int argc, const char *argv[])
     // cat->play();
     // snk->play();
 
-    /* Etape 5 */
+    /* Etape 5  - 6*/
+    int *chapters = new int[3];
+    chapters[0] = 3;
+    chapters[1] = 10;
+    chapters[2] = 15;
     Image *cat = new Image("assets/cat.png", "cat", 225, 208);
     Video *snk = new Video("assets/snk.mp4", "snk", 34);
+    Film *film = new Film("assets/snk.mp4", "snk", 34, 3, chapters);
     Media **medias = new Media *[2];
     medias[0] = cat;
     medias[1] = snk;
