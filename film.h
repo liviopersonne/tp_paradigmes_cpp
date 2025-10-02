@@ -1,13 +1,24 @@
 #ifndef film_h
 #define film_h
 
-#include "video.h";
+#include "video.h"
 
 class Film : public Video
 {
 private:
     unsigned int chapterCount{};
     unsigned int *chapters{};
+    std::string getChapterString() const
+    {
+        std::string s = "[";
+        for (unsigned int i = 0; i < chapterCount; i++)
+        {
+            s += std::to_string(chapters[i]);
+            s += ", ";
+        }
+        s += "\b\b]";
+        return s;
+    }
 
 public:
     Film() {}
@@ -20,7 +31,7 @@ public:
     std::ostream &print(std::ostream &os) const override
     {
         os << "Film<name:" << getName() << ", path:" << getFilePath()
-           << ", duration:" << getDuration() << ", chapters:" << chapters << ">";
+           << ", duration:" << getDuration() << ", chapters:" << getChapterString() << ">";
         return os;
     };
 };

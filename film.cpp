@@ -2,7 +2,7 @@
 
 void Film::setChapters(const unsigned int newChapterCount, unsigned int *const newChapters)
 {
-    for (int i = 0; i < newChapterCount - 1; i++)
+    for (unsigned int i = 0; i < newChapterCount - 1; i++)
     {
         if (newChapters[i] > newChapters[i + 1])
         {
@@ -23,7 +23,7 @@ void Film::setChapters(const unsigned int newChapterCount, unsigned int *const n
 Film *Film::copy() const
 {
     unsigned int *chaptersCopy = new unsigned int[chapterCount];
-    for (int i = 0; i < chapterCount; i++)
+    for (unsigned int i = 0; i < chapterCount; i++)
     {
         chaptersCopy[i] = chapters[i];
     }

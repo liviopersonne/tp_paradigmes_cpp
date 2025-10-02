@@ -8,6 +8,7 @@
 #include "image.h"
 #include "video.h"
 #include "film.h"
+#include "group.h"
 
 int main(int argc, const char *argv[])
 {
@@ -30,34 +31,35 @@ int main(int argc, const char *argv[])
     // cat->play();
     // snk->play();
 
-    /* Etape 5  - 6*/
-    int *chapters = new int[3];
+    /* Etape 5  - 6 - 8*/
+
+    unsigned int *chapters = new unsigned int[3];
     chapters[0] = 3;
     chapters[1] = 10;
     chapters[2] = 15;
     Image *cat = new Image("assets/cat.png", "cat", 225, 208);
     Video *snk = new Video("assets/snk.mp4", "snk", 34);
     Film *film = new Film("assets/snk.mp4", "snk", 34, 3, chapters);
-    Media **medias = new Media *[2];
-    medias[0] = cat;
-    medias[1] = snk;
+    Media *medias[] = {cat, snk, film};
 
-    for (int i = 0; i < 2; i++)
+    /*for (int i = 0; i < 3; i++)
     {
         Media *media = medias[i];
         std::cout << *media << std::endl;
-    }
+    }*/
 
     // C'est le polymorphisme qui permet cela
     // Il est nécessaire de créer une méthode abstraite dans Media pour permettre le polymorphisme
     // Ces objets sont de type Media*, il faut des pointeurs vers ces objets
+
+    Group *group = new Group("myGroup", 3, medias);
+    std::cout << *group;
 
     // Free the memory
     for (int i = 0; i < 2; i++)
     {
         delete medias[i];
     }
-    delete[] medias;
 
     return 0;
 }

@@ -6,14 +6,14 @@
 class Video : public Media
 {
 private:
-    int duration{};
+    unsigned int duration{};
 
 public:
-    Video(const std::string filePath, const std::string name, const int duration) : Media(filePath, name), duration(duration) {}
+    Video(const std::string filePath, const std::string name, const unsigned int duration) : Media(filePath, name), duration(duration) {}
     Video() {}
     virtual ~Video() {}
-    int getDuration() const { return duration; }
-    void setDuration(const int d) { duration = d; }
+    unsigned int getDuration() const { return duration; }
+    void setDuration(const unsigned int d) { duration = d; }
     std::ostream &print(std::ostream &os) const override
     {
         os << "Video<name:" << getName() << ", path:" << getFilePath()
