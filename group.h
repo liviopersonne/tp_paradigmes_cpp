@@ -12,7 +12,7 @@ private:
 
 public:
     Group() {}
-    Group(const std::string &name, unsigned int mediaCount, Media **medias);
+    Group(const std::string &name) : name(name) {};
     std::string getName() const { return name; }
     friend std::ostream &operator<<(std::ostream &os, const Group &group)
     {

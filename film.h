@@ -10,6 +10,10 @@ private:
     unsigned int *chapters{};
     std::string getChapterString() const
     {
+        if (chapterCount == 0)
+        {
+            return "[]";
+        }
         std::string s = "[";
         for (unsigned int i = 0; i < chapterCount; i++)
         {

@@ -40,26 +40,31 @@ int main(int argc, const char *argv[])
     Image *cat = new Image("assets/cat.png", "cat", 225, 208);
     Video *snk = new Video("assets/snk.mp4", "snk", 34);
     Film *film = new Film("assets/snk.mp4", "snk", 34, 3, chapters);
-    Media *medias[] = {cat, snk, film};
 
-    /*for (int i = 0; i < 3; i++)
+    /* Etapes 5 & 6 */
+    Media *medias[] = {cat, snk, film};
+    for (int i = 0; i < 3; i++)
     {
         Media *media = medias[i];
         std::cout << *media << std::endl;
-    }*/
+    }
 
     // C'est le polymorphisme qui permet cela
     // Il est nécessaire de créer une méthode abstraite dans Media pour permettre le polymorphisme
     // Ces objets sont de type Media*, il faut des pointeurs vers ces objets
 
-    Group *group = new Group("myGroup", 3, medias);
+    /* Etape 8 */
+    Group *group = new Group("myGroup");
+    std::cout << *group;
+    group->push_back(cat);
+    group->push_back(snk);
+    group->push_back(film);
     std::cout << *group;
 
     // Free the memory
-    for (int i = 0; i < 2; i++)
-    {
-        delete medias[i];
-    }
+    delete cat;
+    delete snk;
+    delete film;
 
     return 0;
 }
