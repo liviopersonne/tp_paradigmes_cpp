@@ -4,7 +4,7 @@ std::ostream &Group::print(std::ostream &os) const
 {
     const std::string lineTab = "\n\t";
     os << "Group[";
-    for (const Media *e : *this)
+    for (const MediaPtr &e : *this)
     {
         os << lineTab << *e;
     }

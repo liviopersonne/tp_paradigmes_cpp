@@ -3,6 +3,9 @@
 
 #include <string>
 #include <iostream>
+#include <memory>
+
+typedef std::shared_ptr<Media> MediaPtr;
 
 class Media
 {

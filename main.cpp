@@ -33,15 +33,15 @@ int main(int argc, const char *argv[])
 
     /* Etape 5  - 6 - 8*/
 
+    /*
     unsigned int *chapters = new unsigned int[3];
     chapters[0] = 3;
     chapters[1] = 10;
     chapters[2] = 15;
     Image *cat = new Image("assets/cat.png", "cat", 225, 208);
     Video *snk = new Video("assets/snk.mp4", "snk", 34);
-    Film *film = new Film("assets/snk.mp4", "snk", 34, 3, chapters);
+    Film *film = new Film("assets/snk.mp4", "snkFilm", 34, 3, chapters);
 
-    /* Etapes 5 & 6 */
     Media *medias[] = {cat, snk, film};
     for (int i = 0; i < 3; i++)
     {
@@ -53,7 +53,6 @@ int main(int argc, const char *argv[])
     // Il est nécessaire de créer une méthode abstraite dans Media pour permettre le polymorphisme
     // Ces objets sont de type Media*, il faut des pointeurs vers ces objets
 
-    /* Etape 8 */
     Group *group = new Group("myGroup");
     std::cout << *group;
     group->push_back(cat);
@@ -65,6 +64,24 @@ int main(int argc, const char *argv[])
     delete cat;
     delete snk;
     delete film;
+    */
+
+    /* Etape 9 */
+    std::shared_ptr<Image> cat(new Image("assets/cat.png", "cat", 225, 208));
+    std::shared_ptr<Video> snk(new Video("assets/snk.mp4", "snk", 34));
+    unsigned int *chapters = new unsigned int[3]{3, 10, 15};
+    std::shared_ptr<Film> film(new Film("assets/snk.mp4", "snkFilm", 34, 3, chapters));
+    Group *group = new Group("myGroup");
+    group->push_back(cat);
+    group->push_back(snk);
+    group->push_back(film);
+    std::cout << *group << std::endl;
+    group->pop_back();
+    std::cout << *group << std::endl;
+    group->pop_back();
+    std::cout << *group << std::endl;
+    group->pop_back();
+    std::cout << *group << std::endl;
 
     return 0;
 }

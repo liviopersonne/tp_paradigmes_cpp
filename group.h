@@ -5,7 +5,7 @@
 #include <string>
 #include "media.h"
 
-class Group : public std::list<Media *>
+class Group : public std::list<MediaPtr>
 {
 private:
     std::string name{};

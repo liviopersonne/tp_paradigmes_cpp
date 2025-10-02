@@ -12,7 +12,7 @@ private:
 public:
     Image(const std::string filePath, const std::string name, const int width, const int height) : Media(filePath, name), width(width), height(height) {}
     Image() {}
-    virtual ~Image() {};
+    virtual ~Image() { std::cout << "Destruction d'image" << std::endl; }
     int getWidth() const { return width; }
     int getHeight() const { return height; }
     void setWidth(int w) { width = w; }

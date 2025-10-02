@@ -11,7 +11,7 @@ private:
 public:
     Video(const std::string filePath, const std::string name, const unsigned int duration) : Media(filePath, name), duration(duration) {}
     Video() {}
-    virtual ~Video() {}
+    virtual ~Video() { std::cout << "Destruction de vidéo" << std::endl; }
     unsigned int getDuration() const { return duration; }
     void setDuration(const unsigned int d) { duration = d; }
     std::ostream &print(std::ostream &os) const override
