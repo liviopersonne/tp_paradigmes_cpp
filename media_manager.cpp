@@ -1,0 +1,87 @@
+#include "media_manager.h"
+
+template <typename T>
+void warnIfFoundInTable(std::map<std::string, T> table, std::string name)
+{
+    if (table.find(name) != mediaTable.end())
+    {
+        std::cout << "Warning: Element '" << name << "' already exsists in table" << std::endl;
+    }
+}
+
+std::shared_ptr<Image> MediaManager::createImage(const std::string filePath, const std::string name, const int width, const int height)
+{
+    std::shared_ptr<Image> img(new Image(filePath, name, width, height));
+    warnIfFoundInTable(mediaTable, name);
+    mediaTable.insert_or_assign(name, img);
+    return img;
+}
+
+std::shared_ptr<Video> MediaManager::createVideo(const std::string filePath, const std::string name, const unsigned int duration)
+{
+    std::shared_ptr<Video> video(new Video(filePath, name, duration));
+    warnIfFoundInTable(mediaTable, name);
+    mediaTable.insert_or_assign(name, video);
+    return video;
+}
+
+std::shared_ptr<Film> MediaManager::createFilm(const std::string filePath, const std::string name, const int duration, const unsigned int chapterCount, unsigned int *const chapters)
+{
+    std::shared_ptr<Film> film(new Film(filePath, name, duration, chapterCount, chapters));
+    warnIfFoundInTable(mediaTable, name);
+    mediaTable.insert_or_assign(name, film);
+    return film;
+}
+
+GroupPtr MediaManager::createGroup(const std::string name)
+{
+    std::shared_ptr<Group> group(new Group(name));
+    warnIfFoundInTable(groupTable, name);
+    groupTable.insert_or_assign(name, group);
+    return group;
+}
+
+bool MediaManager::searchMedia(const std::string searchedName) const
+{
+    auto elem = mediaTable.find(searchedName);
+    if (elem == mediaTable.end())
+    {
+        std::cout << "Warning: Media '" << searchedName << "' not found in table";
+        return false;
+    }
+    else
+    {
+        std::cout << *elem->second;
+        return true;
+    }
+}
+
+bool MediaManager::searchGroup(const std::string searchedName) const
+{
+    auto elem = groupTable.find(searchedName);
+    if (elem == groupTable.end())
+    {
+        std::cout << "Warning: Group '" << searchedName << "' not found in table";
+        return false;
+    }
+    else
+    {
+        std::cout << *elem->second;
+        return true;
+    }
+}
+
+bool MediaManager::playMedia(const std::string mediaName) const
+{
+    auto elem = mediaTable.find(mediaName);
+    if (elem == mediaTable.end())
+    {
+        std::cout << "Warning: Media '" << mediaName << "' not found in table";
+        return false;
+    }
+    else
+    {
+        elem->second->play();
+        return true;
+    }
+}
