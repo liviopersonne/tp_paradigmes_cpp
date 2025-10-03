@@ -2,3 +2,7 @@
 .vscode
 depend-coucou
 coucou
+client
+depend-client
+depend-server
+server
