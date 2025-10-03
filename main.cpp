@@ -4,11 +4,13 @@
 //
 
 #include <iostream>
+#include <memory>
 #include "media.h"
 #include "image.h"
 #include "video.h"
 #include "film.h"
 #include "group.h"
+#include "media_manager.h"
 
 int main(int argc, const char *argv[])
 {
@@ -67,6 +69,7 @@ int main(int argc, const char *argv[])
     */
 
     /* Etape 9 */
+    /*
     std::shared_ptr<Image> cat(new Image("assets/cat.png", "cat", 225, 208));
     std::shared_ptr<Video> snk(new Video("assets/snk.mp4", "snk", 34));
     unsigned int *chapters = new unsigned int[3]{3, 10, 15};
@@ -82,6 +85,19 @@ int main(int argc, const char *argv[])
     std::cout << *group << std::endl;
     group->pop_back();
     std::cout << *group << std::endl;
+    */
+
+    /* Etape 10 */
+    // On rend les constructeurs privés pour éviter l'instanciation avec "new"
+    // En fait on va plutôt les rendre protected pour que film puisse utiliser le constructeur de video
+
+    std::shared_ptr<MediaManager> manager(new MediaManager());
+    manager->createImage("assets/cat.png", "cat", 225, 208);
+    manager->createVideo("assets/snk.mp4", "snk", 34);
+    manager->searchMedia("cat");
+    manager->searchMedia("aaa");
+    manager->playMedia("cat");
+    manager->playMedia("snk");
 
     return 0;
 }

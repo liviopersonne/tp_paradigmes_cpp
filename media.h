@@ -5,15 +5,21 @@
 #include <iostream>
 #include <memory>
 
+class MediaManager;
+
 class Media
 {
+    friend class MediaManager;
+
 private:
     std::string filePath{};
     std::string name{};
 
-public:
+protected:
     Media(const std::string filePath, const std::string name) : filePath(filePath), name(name) {}
     Media() {}
+
+public:
     virtual ~Media() {}
     std::string getFilePath() const { return filePath; }
     std::string getName() const { return name; }

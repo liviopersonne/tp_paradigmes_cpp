@@ -3,8 +3,12 @@
 
 #include "video.h"
 
+class MediaManager;
+
 class Film : public Video
 {
+    friend class MediaManager;
+
 private:
     unsigned int chapterCount{};
     unsigned int *chapters{};
@@ -24,13 +28,15 @@ private:
         return s;
     }
 
-public:
+protected:
     Film() {}
     Film(const std::string filePath, const std::string name, const int duration, const unsigned int chapterCount, unsigned int *const chapters) : Video(filePath, name, duration), chapterCount(chapterCount), chapters(chapters) {}
+
+public:
     virtual ~Film()
     {
         delete[] chapters;
-        std::cout << "Destruction de film" << std::endl;
+        std::cout << "Destruction of film" << std::endl;
     };
     unsigned int *getChapters() const { return chapters; }
     unsigned int getChapterCount() const { return chapterCount; }

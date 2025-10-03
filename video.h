@@ -3,15 +3,21 @@
 
 #include "media.h"
 
+class MediaManager;
+
 class Video : public Media
 {
+    friend class MediaManager;
+
 private:
     unsigned int duration{};
 
-public:
+protected:
     Video(const std::string filePath, const std::string name, const unsigned int duration) : Media(filePath, name), duration(duration) {}
     Video() {}
-    virtual ~Video() { std::cout << "Destruction de vidéo" << std::endl; }
+
+public:
+    virtual ~Video() { std::cout << "Destruction of video" << std::endl; }
     unsigned int getDuration() const { return duration; }
     void setDuration(const unsigned int d) { duration = d; }
     std::ostream &print(std::ostream &os) const override

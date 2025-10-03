@@ -3,7 +3,7 @@
 template <typename T>
 void warnIfFoundInTable(std::map<std::string, T> table, std::string name)
 {
-    if (table.find(name) != mediaTable.end())
+    if (table.find(name) != table.end())
     {
         std::cout << "Warning: Element '" << name << "' already exsists in table" << std::endl;
     }
@@ -13,7 +13,7 @@ std::shared_ptr<Image> MediaManager::createImage(const std::string filePath, con
 {
     std::shared_ptr<Image> img(new Image(filePath, name, width, height));
     warnIfFoundInTable(mediaTable, name);
-    mediaTable.insert_or_assign(name, img);
+    mediaTable[name] = img;
     return img;
 }
 
@@ -21,7 +21,7 @@ std::shared_ptr<Video> MediaManager::createVideo(const std::string filePath, con
 {
     std::shared_ptr<Video> video(new Video(filePath, name, duration));
     warnIfFoundInTable(mediaTable, name);
-    mediaTable.insert_or_assign(name, video);
+    mediaTable[name] = video;
     return video;
 }
 
@@ -29,7 +29,7 @@ std::shared_ptr<Film> MediaManager::createFilm(const std::string filePath, const
 {
     std::shared_ptr<Film> film(new Film(filePath, name, duration, chapterCount, chapters));
     warnIfFoundInTable(mediaTable, name);
-    mediaTable.insert_or_assign(name, film);
+    mediaTable[name] = film;
     return film;
 }
 
@@ -37,7 +37,7 @@ GroupPtr MediaManager::createGroup(const std::string name)
 {
     std::shared_ptr<Group> group(new Group(name));
     warnIfFoundInTable(groupTable, name);
-    groupTable.insert_or_assign(name, group);
+    groupTable[name] = group;
     return group;
 }
 
@@ -46,12 +46,12 @@ bool MediaManager::searchMedia(const std::string searchedName) const
     auto elem = mediaTable.find(searchedName);
     if (elem == mediaTable.end())
     {
-        std::cout << "Warning: Media '" << searchedName << "' not found in table";
+        std::cout << "Warning: Media '" << searchedName << "' not found in table" << std::endl;
         return false;
     }
     else
     {
-        std::cout << *elem->second;
+        std::cout << *elem->second << std::endl;
         return true;
     }
 }
@@ -61,12 +61,12 @@ bool MediaManager::searchGroup(const std::string searchedName) const
     auto elem = groupTable.find(searchedName);
     if (elem == groupTable.end())
     {
-        std::cout << "Warning: Group '" << searchedName << "' not found in table";
+        std::cout << "Warning: Group '" << searchedName << "' not found in table" << std::endl;
         return false;
     }
     else
     {
-        std::cout << *elem->second;
+        std::cout << *elem->second << std::endl;
         return true;
     }
 }
@@ -76,7 +76,7 @@ bool MediaManager::playMedia(const std::string mediaName) const
     auto elem = mediaTable.find(mediaName);
     if (elem == mediaTable.end())
     {
-        std::cout << "Warning: Media '" << mediaName << "' not found in table";
+        std::cout << "Warning: Media '" << mediaName << "' not found in table" << std::endl;
         return false;
     }
     else
