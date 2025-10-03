@@ -27,6 +27,8 @@ public:
     bool searchMedia(const std::string searchedName) const;
     bool searchGroup(const std::string searchedName) const;
     bool playMedia(const std::string mediaName) const;
+    bool deleteGroup(const std::string groupName);
+    bool deleteMedia(const std::string mediaName);
 };
 
 #endif

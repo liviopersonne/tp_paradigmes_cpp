@@ -3,7 +3,7 @@
 std::ostream &Group::print(std::ostream &os) const
 {
     const std::string lineTab = "\n\t";
-    os << "Group[";
+    os << "Group<" << this->getName() << ">[";
     for (const MediaPtr &e : *this)
     {
         os << lineTab << *e;

@@ -22,7 +22,7 @@ protected:
     Group(const std::string name) : name(name) {}
 
 public:
-    virtual ~Group() {}
+    virtual ~Group() { std::cout << "Destruction of group" << std::endl; }
     std::string getName() const { return name; }
     friend std::ostream &operator<<(std::ostream &os, const Group &group)
     {

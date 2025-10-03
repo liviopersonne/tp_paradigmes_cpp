@@ -85,3 +85,48 @@ bool MediaManager::playMedia(const std::string mediaName) const
         return true;
     }
 }
+
+bool MediaManager::deleteGroup(const std::string groupName)
+{
+    auto elem = groupTable.find(groupName);
+    if (elem == groupTable.end())
+    {
+        std::cout << "Warning: Group '" << groupName << "' not found in table" << std::endl;
+        return false;
+    }
+    else
+    {
+        groupTable.erase(groupName);
+        return true;
+    }
+}
+
+bool MediaManager::deleteMedia(const std::string mediaName)
+{
+    auto elem = mediaTable.find(mediaName);
+    if (elem == mediaTable.end())
+    {
+        std::cout << "Warning: Media '" << mediaName << "' not found in table" << std::endl;
+        return false;
+    }
+    else
+    {
+        // Remove the media from all the groups it's in
+        for (auto groupElem = groupTable.begin(); groupElem != groupTable.end(); groupElem++)
+        {
+            GroupPtr currentGroup = groupElem->second;
+            for (auto mediaElem = currentGroup->begin(); mediaElem != currentGroup->end(); mediaElem++)
+            {
+                MediaPtr currentMedia = *mediaElem;
+                if (currentMedia->getName() == mediaName)
+                {
+                    currentGroup->remove(currentMedia);
+                    break;
+                }
+            }
+        }
+
+        mediaTable.erase(mediaName);
+        return true;
+    }
+}

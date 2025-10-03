@@ -12,6 +12,20 @@
 #include "group.h"
 #include "media_manager.h"
 
+void create_groups(std::shared_ptr<MediaManager> manager)
+{
+    MediaPtr cat = manager->createImage("assets/cat.png", "cat", 225, 208);
+    MediaPtr snk = manager->createVideo("assets/snk.mp4", "snk", 34);
+    unsigned int *chapters = new unsigned int[3]{3, 10, 15};
+    MediaPtr film = manager->createFilm("assets/snk.mp4", "snkFilm", 34, 3, chapters);
+    GroupPtr group1 = manager->createGroup("group1");
+    GroupPtr group2 = manager->createGroup("group2");
+    group1->push_back(cat);
+    group2->push_back(snk);
+    group2->push_back(cat);
+    group2->push_back(film);
+}
+
 int main(int argc, const char *argv[])
 {
     /* Etapes 1-3 */
@@ -96,8 +110,27 @@ int main(int argc, const char *argv[])
     manager->createVideo("assets/snk.mp4", "snk", 34);
     manager->searchMedia("cat");
     manager->searchMedia("aaa");
-    manager->playMedia("cat");
-    manager->playMedia("snk");
+    // manager->playMedia("cat");
+    // manager->playMedia("snk");
+
+    // Test de suppression de media
+    create_groups(manager);
+    /* la creation de groupes est faite dans une fonction à part pour éviter de garder une référence
+        aux pointeurs, ce qui bloquerait la destruction des éléments lors de leur suppression.*/
+    manager->searchGroup("group1");
+    manager->searchGroup("group2");
+    manager->searchMedia("cat");
+    manager->deleteMedia("bbb");
+    manager->deleteMedia("cat");
+    manager->searchGroup("group1");
+    manager->searchGroup("group2");
+    manager->searchMedia("cat");
+
+    // Test de suppression de groupe
+    manager->deleteGroup("aaa");
+    manager->deleteGroup("group2");
+    manager->searchGroup("group1");
+    manager->searchGroup("group2");
 
     return 0;
 }
