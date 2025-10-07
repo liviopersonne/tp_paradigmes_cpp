@@ -19,16 +19,17 @@ private:
 
 protected:
     Group() {}
-    Group(const std::string name) : name(name) {}
+    Group(const std::string &name) : name(name) {}
 
 public:
     virtual ~Group() { std::cout << "Destruction of group" << std::endl; }
     std::string getName() const { return name; }
     friend std::ostream &operator<<(std::ostream &os, const Group &group)
     {
-        return group.print(os);
-    };
-    std::ostream &print(std::ostream &os) const;
+        group.print(os);
+        return os;
+    }
+    void print(std::ostream &os) const;
 };
 
 #endif

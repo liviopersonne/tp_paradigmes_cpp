@@ -1,6 +1,6 @@
 #include "group.h"
 
-std::ostream &Group::print(std::ostream &os) const
+void Group::print(std::ostream &os) const
 {
     const std::string lineTab = "\n\t";
     os << "Group<" << this->getName() << ">[";
@@ -10,5 +10,4 @@ std::ostream &Group::print(std::ostream &os) const
     }
 
     os << "\n]" << std::endl;
-    return os;
 };

@@ -30,7 +30,8 @@ private:
 
 protected:
     Film() {}
-    Film(const std::string filePath, const std::string name, const int duration, const unsigned int chapterCount, unsigned int *const chapters) : Video(filePath, name, duration), chapterCount(chapterCount), chapters(chapters) {}
+    Film(const std::string &filePath, const std::string &name, const int duration, const unsigned int chapterCount, unsigned int const *chapters)
+        : Video(filePath, name, duration) { setChapters(chapterCount, chapters); }
 
 public:
     virtual ~Film()
@@ -38,16 +39,18 @@ public:
         delete[] chapters;
         std::cout << "Destruction of film" << std::endl;
     };
-    unsigned int *getChapters() const { return chapters; }
+
+    unsigned int const *getChapters() const { return chapters; }
+
     unsigned int getChapterCount() const { return chapterCount; }
-    void setChapters(const unsigned int chapterCount, unsigned int *const chapters);
-    Film *copy() const;
-    std::ostream &print(std::ostream &os) const override
+
+    void setChapters(unsigned int chapterCount, unsigned int const *chapters);
+
+    void print(std::ostream &os) const override
     {
         os << "Film<name:" << getName() << ", path:" << getFilePath()
            << ", duration:" << getDuration() << ", chapters:" << getChapterString() << ">";
-        return os;
-    };
+    }
 };
 
 #endif

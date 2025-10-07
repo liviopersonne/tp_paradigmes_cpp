@@ -10,7 +10,7 @@ void warnIfFoundInTable(std::map<std::string, T> table, std::string name, std::s
     }
 }
 
-std::shared_ptr<Image> MediaManager::createImage(const std::string filePath, const std::string name, const int width, const int height, std::stringstream &os)
+std::shared_ptr<Image> MediaManager::createImage(const std::string &filePath, const std::string &name, const int width, const int height, std::stringstream &os)
 {
     std::shared_ptr<Image> img(new Image(filePath, name, width, height));
     warnIfFoundInTable(mediaTable, name, os);
@@ -18,7 +18,7 @@ std::shared_ptr<Image> MediaManager::createImage(const std::string filePath, con
     return img;
 }
 
-std::shared_ptr<Video> MediaManager::createVideo(const std::string filePath, const std::string name, const unsigned int duration, std::stringstream &os)
+std::shared_ptr<Video> MediaManager::createVideo(const std::string &filePath, const std::string &name, const unsigned int duration, std::stringstream &os)
 {
     std::shared_ptr<Video> video(new Video(filePath, name, duration));
     warnIfFoundInTable(mediaTable, name, os);
@@ -26,7 +26,7 @@ std::shared_ptr<Video> MediaManager::createVideo(const std::string filePath, con
     return video;
 }
 
-std::shared_ptr<Film> MediaManager::createFilm(const std::string filePath, const std::string name, const int duration, const unsigned int chapterCount, unsigned int *const chapters, std::stringstream &os)
+std::shared_ptr<Film> MediaManager::createFilm(const std::string &filePath, const std::string &name, const int duration, const unsigned int chapterCount, unsigned int *const chapters, std::stringstream &os)
 {
     std::shared_ptr<Film> film(new Film(filePath, name, duration, chapterCount, chapters));
     warnIfFoundInTable(mediaTable, name, os);
@@ -34,7 +34,7 @@ std::shared_ptr<Film> MediaManager::createFilm(const std::string filePath, const
     return film;
 }
 
-GroupPtr MediaManager::createGroup(const std::string name, std::stringstream &os)
+GroupPtr MediaManager::createGroup(const std::string &name, std::stringstream &os)
 {
     std::shared_ptr<Group> group(new Group(name));
     warnIfFoundInTable(groupTable, name, os);
@@ -42,7 +42,7 @@ GroupPtr MediaManager::createGroup(const std::string name, std::stringstream &os
     return group;
 }
 
-bool MediaManager::searchMedia(const std::string searchedName, std::stringstream &os) const
+bool MediaManager::searchMedia(const std::string &searchedName, std::stringstream &os) const
 {
     auto elem = mediaTable.find(searchedName);
     if (elem == mediaTable.end())
@@ -57,7 +57,7 @@ bool MediaManager::searchMedia(const std::string searchedName, std::stringstream
     }
 }
 
-bool MediaManager::searchGroup(const std::string searchedName, std::stringstream &os) const
+bool MediaManager::searchGroup(const std::string &searchedName, std::stringstream &os) const
 {
     auto elem = groupTable.find(searchedName);
     if (elem == groupTable.end())
@@ -72,7 +72,7 @@ bool MediaManager::searchGroup(const std::string searchedName, std::stringstream
     }
 }
 
-bool MediaManager::playMedia(const std::string mediaName, std::stringstream &os) const
+bool MediaManager::playMedia(const std::string &mediaName, std::stringstream &os) const
 {
     auto elem = mediaTable.find(mediaName);
     if (elem == mediaTable.end())
@@ -87,7 +87,7 @@ bool MediaManager::playMedia(const std::string mediaName, std::stringstream &os)
     }
 }
 
-bool MediaManager::deleteGroup(const std::string groupName, std::stringstream &os)
+bool MediaManager::deleteGroup(const std::string &groupName, std::stringstream &os)
 {
     auto elem = groupTable.find(groupName);
     if (elem == groupTable.end())
@@ -102,7 +102,7 @@ bool MediaManager::deleteGroup(const std::string groupName, std::stringstream &o
     }
 }
 
-bool MediaManager::deleteMedia(const std::string mediaName, std::stringstream &os)
+bool MediaManager::deleteMedia(const std::string &mediaName, std::stringstream &os)
 {
     auto elem = mediaTable.find(mediaName);
     if (elem == mediaTable.end())

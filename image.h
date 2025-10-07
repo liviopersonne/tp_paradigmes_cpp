@@ -14,7 +14,8 @@ private:
     int height{};
 
 protected:
-    Image(const std::string filePath, const std::string name, const int width, const int height) : Media(filePath, name), width(width), height(height) {}
+    Image(const std::string &filePath, const std::string &name, const int width, const int height)
+        : Media(filePath, name), width(width), height(height) {}
     Image() {}
 
 public:
@@ -23,11 +24,11 @@ public:
     int getHeight() const { return height; }
     void setWidth(int w) { width = w; }
     void setHeight(int h) { height = h; }
-    std::ostream &print(std::ostream &os) const override
+    void print(std::ostream &os) const override
     {
+        // TODO: Chainer les print
         os << "Image<name:" << getName() << ", path:" << getFilePath()
            << ", width:" << width << ", height:" << height << ">";
-        return os;
     };
 
     void play() const

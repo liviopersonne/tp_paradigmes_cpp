@@ -13,18 +13,17 @@ private:
     unsigned int duration{};
 
 protected:
-    Video(const std::string filePath, const std::string name, const unsigned int duration) : Media(filePath, name), duration(duration) {}
+    Video(const std::string &filePath, const std::string &name, const unsigned int duration) : Media(filePath, name), duration(duration) {}
     Video() {}
 
 public:
     virtual ~Video() { std::cout << "Destruction of video" << std::endl; }
     unsigned int getDuration() const { return duration; }
     void setDuration(const unsigned int d) { duration = d; }
-    std::ostream &print(std::ostream &os) const override
+    void print(std::ostream &os) const override
     {
         os << "Video<name:" << getName() << ", path:" << getFilePath()
            << ", duration:" << duration << ">";
-        return os;
     };
 
     void play() const
