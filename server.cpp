@@ -35,6 +35,14 @@ void matchCommand(std::string command, std::string argument, std::shared_ptr<Med
   {
     manager->deleteGroup(argument, repStream);
   }
+  else if (command == "load")
+  {
+    manager->readFile(argument, repStream);
+  }
+  else if (command == "save")
+  {
+    manager->writeFile(argument, repStream);
+  }
 }
 
 std::string decodeRequest(std::shared_ptr<MediaManager> manager, std::string const &request)

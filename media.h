@@ -37,6 +37,16 @@ public:
         os << "Media<name:" << this->getName() << ", path:" << this->getFilePath() << ">";
     }
     virtual void play() const = 0;
+    virtual std::string classname() const = 0;
+    virtual void write(std::ostream &f)
+    {
+        f << name << '\n'
+          << filePath << '\n';
+    }
+    virtual void read(std::istream &f)
+    {
+        f >> name >> filePath;
+    }
 };
 
 #endif

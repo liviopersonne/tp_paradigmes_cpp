@@ -21,6 +21,9 @@ private:
 public:
     MediaManager() {};
     virtual ~MediaManager() {}
+    std::shared_ptr<Media> createMedia(const std::string &className);
+    bool readFile(const std::string &filename, std::stringstream &os);
+    bool writeFile(const std::string &filename, std::stringstream &os);
     std::shared_ptr<Image> createImage(const std::string &filePath, const std::string &name, const int width, const int height, std::stringstream &os);
     std::shared_ptr<Video> createVideo(const std::string &filePath, const std::string &name, const unsigned int duration, std::stringstream &os);
     std::shared_ptr<Film> createFilm(const std::string &filePath, const std::string &name, const int duration, const unsigned int chapterCount, unsigned int *const chapters, std::stringstream &os);

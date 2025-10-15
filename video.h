@@ -17,6 +17,7 @@ protected:
     Video() {}
 
 public:
+    std::string classname() const override { return "Video"; }
     virtual ~Video() { std::cout << "Destruction of video" << std::endl; }
     unsigned int getDuration() const { return duration; }
     void setDuration(const unsigned int d) { duration = d; }
@@ -29,6 +30,16 @@ public:
     void play() const
     {
         system(("vlc " + getFilePath() + " &").data());
+    }
+    virtual void write(std::ostream &f) override
+    {
+        Media::write(f);
+        f << duration << '\n';
+    }
+    virtual void read(std::istream &f) override
+    {
+        Media::read(f);
+        f >> duration;
     }
 };
 

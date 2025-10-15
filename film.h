@@ -27,6 +27,24 @@ private:
         s += "\b\b]";
         return s;
     }
+    void writeChapters(std::ostream &f)
+    {
+        for (unsigned int i = 0; i < chapterCount; i++)
+        {
+            f << chapters[i] << " ";
+        }
+        f << '\n';
+    }
+    void readChapters(unsigned int parsedCount, std::istream &f)
+    {
+        unsigned int *parsedChapters = new unsigned int[parsedCount];
+        for (unsigned int i = 0; i < parsedCount - 1; i++)
+        {
+            f >> parsedChapters[i];
+        }
+        setChapters(parsedCount, parsedChapters);
+        delete[] parsedChapters;
+    }
 
 protected:
     Film() {}
@@ -34,6 +52,7 @@ protected:
         : Video(filePath, name, duration) { setChapters(chapterCount, chapters); }
 
 public:
+    std::string classname() const override { return "Film"; }
     virtual ~Film()
     {
         delete[] chapters;
@@ -50,6 +69,19 @@ public:
     {
         os << "Film<name:" << getName() << ", path:" << getFilePath()
            << ", duration:" << getDuration() << ", chapters:" << getChapterString() << ">";
+    }
+    virtual void write(std::ostream &f) override
+    {
+        Video::write(f);
+        f << chapterCount << '\n';
+        writeChapters(f);
+    }
+    virtual void read(std::istream &f) override
+    {
+        unsigned int parsedChapterCount;
+        Video::read(f);
+        f >> parsedChapterCount;
+        readChapters(parsedChapterCount, f);
     }
 };
 

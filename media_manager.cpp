@@ -1,5 +1,8 @@
 #include "media_manager.h"
 #include <sstream>
+#include <iostream>
+#include <fstream>
+#include <memory>
 
 template <typename T>
 void warnIfFoundInTable(std::map<std::string, T> table, std::string name, std::stringstream &os)
@@ -47,12 +50,12 @@ bool MediaManager::searchMedia(const std::string &searchedName, std::stringstrea
     auto elem = mediaTable.find(searchedName);
     if (elem == mediaTable.end())
     {
-        os << "Warning: Media '" << searchedName << "' not found in table";
+        os << "Warning: Media '" << searchedName << "' not found in table" << std::endl;
         return false;
     }
     else
     {
-        os << *elem->second;
+        os << *elem->second << std::endl;
         return true;
     }
 }
@@ -130,4 +133,85 @@ bool MediaManager::deleteMedia(const std::string &mediaName, std::stringstream &
         mediaTable.erase(mediaName);
         return true;
     }
+}
+
+std::shared_ptr<Media> MediaManager::createMedia(const std::string &className)
+{
+    if (className == "Image")
+    {
+        return std::shared_ptr<Image>(new Image());
+    }
+    else if (className == "Video")
+    {
+        return std::shared_ptr<Video>(new Video());
+    }
+    else if (className == "Film")
+    {
+        return std::shared_ptr<Film>(new Film());
+    }
+    return nullptr;
+};
+
+bool MediaManager::readFile(const std::string &filename, std::stringstream &os)
+{
+    std::ifstream f(filename);
+    if (!f)
+    {
+        std::cerr << "Can't open file " << filename << std::endl;
+        return false;
+    }
+
+    mediaTable.clear();
+    groupTable.clear();
+
+    while (f)
+    {
+        std::string classname;
+        getline(f, classname);
+        std::shared_ptr<Media> media(createMedia(classname));
+        if (!media)
+        {
+            os << "Invalid classname: " << classname << std::endl;
+            return false;
+        }
+        media->read(f);
+        if (f.fail())
+        {
+            os << "Read error in " << filename << std::endl;
+            return false;
+        }
+        else
+        {
+            warnIfFoundInTable(mediaTable, media->name, os);
+            mediaTable[media->name] = media;
+        }
+    }
+    f.close();
+    os << "File loaded successfully !" << std::endl;
+    return true;
+}
+
+bool MediaManager::writeFile(const std::string &filename, std::stringstream &os)
+{
+    std::ofstream f(filename);
+    if (!f)
+    {
+        std::cerr << "Can't open file " << filename << std::endl;
+        return false;
+    }
+
+    for (auto &it : mediaTable)
+    {
+        MediaPtr media = it.second;
+        f << media->classname() << '\n';
+        media->write(f);
+        if (f.fail())
+        {
+            std::cerr << "Write error in " << filename << std::endl;
+            return false;
+        }
+    }
+    f.close();
+    os << "File saved successfully !" << std::endl;
+    return true;
 }
