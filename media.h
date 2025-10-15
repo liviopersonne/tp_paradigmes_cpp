@@ -34,7 +34,7 @@ public:
     };
     virtual void print(std::ostream &os) const
     {
-        os << "Media<name:" << this->getName() << ", path:" << this->getFilePath() << ">";
+        os << classname() << "<name:" << this->getName() << ", path:" << this->getFilePath() << ">";
     }
     virtual void play() const = 0;
     virtual std::string classname() const = 0;

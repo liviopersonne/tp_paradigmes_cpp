@@ -67,8 +67,8 @@ public:
 
     void print(std::ostream &os) const override
     {
-        os << "Film<name:" << getName() << ", path:" << getFilePath()
-           << ", duration:" << getDuration() << ", chapters:" << getChapterString() << ">";
+        Video::print(os);
+        os << "\b, duration:" << getDuration() << ", chapters:" << getChapterString() << ">";
     }
     virtual void write(std::ostream &f) override
     {

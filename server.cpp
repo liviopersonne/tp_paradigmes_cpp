@@ -82,9 +82,16 @@ std::string decodeRequest(std::shared_ptr<MediaManager> manager, std::string con
 void initManager(const std::shared_ptr<MediaManager> manager)
 {
   std::stringstream outStream;
-  manager->createImage("assets/cat.png", "cat", 225, 208, outStream);
-  manager->createVideo("assets/snk.mp4", "snk", 34, outStream);
-  std::cout << outStream.str() << std::endl;
+  MediaPtr cat = manager->createImage("assets/cat.png", "cat", 225, 208, outStream);
+  MediaPtr snk = manager->createVideo("assets/snk.mp4", "snk", 34, outStream);
+  unsigned int *chapters = new unsigned int[3]{3, 10, 15};
+  MediaPtr film = manager->createFilm("assets/snk.mp4", "snkFilm", 34, 3, chapters, outStream);
+  GroupPtr group1 = manager->createGroup("group1", outStream);
+  GroupPtr group2 = manager->createGroup("group2", outStream);
+  group1->push_back(cat);
+  group2->push_back(snk);
+  group2->push_back(cat);
+  group2->push_back(film);
 }
 
 int main(int argc, char *argv[])

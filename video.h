@@ -23,8 +23,8 @@ public:
     void setDuration(const unsigned int d) { duration = d; }
     void print(std::ostream &os) const override
     {
-        os << "Video<name:" << getName() << ", path:" << getFilePath()
-           << ", duration:" << duration << ">";
+        Media::print(os);
+        os << "\b, duration:" << duration << ">";
     };
 
     void play() const

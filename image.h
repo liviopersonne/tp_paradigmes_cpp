@@ -27,9 +27,8 @@ public:
     void setHeight(int h) { height = h; }
     void print(std::ostream &os) const override
     {
-        // TODO: Chainer les print
-        os << "Image<name:" << getName() << ", path:" << getFilePath()
-           << ", width:" << width << ", height:" << height << ">";
+        Media::print(os);
+        os << "\b, width:" << width << ", height:" << height << ">";
     };
 
     void play() const override
