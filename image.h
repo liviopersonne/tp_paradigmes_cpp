@@ -45,7 +45,6 @@ public:
     {
         Media::read(f);
         f >> width >> height;
-        std::cout << "Got width: " << width << " and height: " << height << std::endl;
     }
 };
 

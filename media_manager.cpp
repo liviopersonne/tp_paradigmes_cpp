@@ -163,14 +163,13 @@ bool MediaManager::readFile(const std::string &filename, std::stringstream &os)
 
     mediaTable.clear();
     groupTable.clear();
+    std::string classname;
+    getline(f, classname);
 
-    while (f)
+    while (classname != "===")
     {
-        std::string classname;
-        getline(f, classname);
-        if (classname == "")
-            break;
-        std::shared_ptr<Media> media(createMedia(classname));
+        // Read media
+        MediaPtr media(createMedia(classname));
         if (!media)
         {
             os << "Invalid classname: '" << classname;
@@ -187,9 +186,23 @@ bool MediaManager::readFile(const std::string &filename, std::stringstream &os)
             warnIfFoundInTable(mediaTable, media->name, os);
             mediaTable[media->name] = media;
         }
-        // Buffer a line here to move onto the next object
-        std::string buffer;
-        getline(f, buffer);
+        // Buffer a line here to move onto the next object (I used >> instead of getline)
+        getline(f, classname);
+        getline(f, classname);
+    }
+    getline(f, classname);
+    while (classname != "")
+    {
+        std::cout << "Group classname: '" << classname << std::endl;
+        // Read groups
+        GroupPtr group(createGroup(classname, os));
+        group->read(f, mediaTable);
+        if (f.fail())
+        {
+            os << "Read error in " << filename;
+            return false;
+        }
+        getline(f, classname);
     }
     f.close();
     os << "File loaded successfully !";
@@ -210,6 +223,18 @@ bool MediaManager::writeFile(const std::string &filename, std::stringstream &os)
         MediaPtr media = it.second;
         f << media->classname() << '\n';
         media->write(f);
+        if (f.fail())
+        {
+            os << "Write error in " << filename;
+            return false;
+        }
+    }
+    f << "===\n";
+    for (auto &it : groupTable)
+    {
+        GroupPtr group = it.second;
+        f << group->getName() << '\n';
+        group->write(f);
         if (f.fail())
         {
             os << "Write error in " << filename;

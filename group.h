@@ -4,6 +4,7 @@
 #include <list>
 #include <string>
 #include <memory>
+#include <map>
 #include "media.h"
 
 class MediaManager;
@@ -30,6 +31,8 @@ public:
         return os;
     }
     void print(std::ostream &os) const;
+    virtual void write(std::ostream &f);
+    virtual void read(std::istream &f, std::map<std::string, MediaPtr> mediaTable);
 };
 
 #endif

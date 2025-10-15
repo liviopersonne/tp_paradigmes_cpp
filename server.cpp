@@ -12,6 +12,7 @@
 #include "media_manager.h"
 
 const int PORT = 3331;
+const std::string allCommands = "'searchMedia' 'searchGroup' 'playMedia' 'deleteMedia' 'deleteGroup' 'load' 'save'";
 
 void matchCommand(std::string command, std::string argument, std::shared_ptr<MediaManager> manager, std::stringstream &repStream)
 {
@@ -43,6 +44,10 @@ void matchCommand(std::string command, std::string argument, std::shared_ptr<Med
   {
     manager->writeFile(argument, repStream);
   }
+  else
+  {
+    repStream << "Invalid command, pick from: " << allCommands;
+  }
 }
 
 std::string decodeRequest(std::shared_ptr<MediaManager> manager, std::string const &request)
@@ -61,7 +66,7 @@ std::string decodeRequest(std::shared_ptr<MediaManager> manager, std::string con
 
   if (command == "help")
   {
-    return "Enter one of the following commands: searchMedia, searchGroup, playMedia, deleteMedia, deleteGroup";
+    return "Enter one of the following commands: " + allCommands;
   }
 
   if (argument.empty())
@@ -88,6 +93,7 @@ void initManager(const std::shared_ptr<MediaManager> manager)
   MediaPtr film = manager->createFilm("assets/snk.mp4", "snkFilm", 34, 3, chapters, outStream);
   GroupPtr group1 = manager->createGroup("group1", outStream);
   GroupPtr group2 = manager->createGroup("group2", outStream);
+  manager->createGroup("group3", outStream);
   group1->push_back(cat);
   group2->push_back(snk);
   group2->push_back(cat);
