@@ -9,5 +9,5 @@ void Group::print(std::ostream &os) const
         os << lineTab << *e;
     }
 
-    os << "\n]" << std::endl;
+    os << "\n]";
 };

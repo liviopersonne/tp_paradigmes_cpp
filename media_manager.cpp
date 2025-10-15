@@ -50,12 +50,12 @@ bool MediaManager::searchMedia(const std::string &searchedName, std::stringstrea
     auto elem = mediaTable.find(searchedName);
     if (elem == mediaTable.end())
     {
-        os << "Warning: Media '" << searchedName << "' not found in table" << std::endl;
+        os << "Warning: Media '" << searchedName << "' not found in table";
         return false;
     }
     else
     {
-        os << *elem->second << std::endl;
+        os << *elem->second;
         return true;
     }
 }
@@ -157,7 +157,7 @@ bool MediaManager::readFile(const std::string &filename, std::stringstream &os)
     std::ifstream f(filename);
     if (!f)
     {
-        std::cerr << "Can't open file " << filename << std::endl;
+        os << "Can't open file " << filename;
         return false;
     }
 
@@ -168,16 +168,18 @@ bool MediaManager::readFile(const std::string &filename, std::stringstream &os)
     {
         std::string classname;
         getline(f, classname);
+        if (classname == "")
+            break;
         std::shared_ptr<Media> media(createMedia(classname));
         if (!media)
         {
-            os << "Invalid classname: " << classname << std::endl;
+            os << "Invalid classname: '" << classname;
             return false;
         }
         media->read(f);
         if (f.fail())
         {
-            os << "Read error in " << filename << std::endl;
+            os << "Read error in " << filename;
             return false;
         }
         else
@@ -185,9 +187,12 @@ bool MediaManager::readFile(const std::string &filename, std::stringstream &os)
             warnIfFoundInTable(mediaTable, media->name, os);
             mediaTable[media->name] = media;
         }
+        // Buffer a line here to move onto the next object
+        std::string buffer;
+        getline(f, buffer);
     }
     f.close();
-    os << "File loaded successfully !" << std::endl;
+    os << "File loaded successfully !";
     return true;
 }
 
@@ -196,7 +201,7 @@ bool MediaManager::writeFile(const std::string &filename, std::stringstream &os)
     std::ofstream f(filename);
     if (!f)
     {
-        std::cerr << "Can't open file " << filename << std::endl;
+        os << "Can't open file " << filename;
         return false;
     }
 
@@ -207,11 +212,11 @@ bool MediaManager::writeFile(const std::string &filename, std::stringstream &os)
         media->write(f);
         if (f.fail())
         {
-            std::cerr << "Write error in " << filename << std::endl;
+            os << "Write error in " << filename;
             return false;
         }
     }
     f.close();
-    os << "File saved successfully !" << std::endl;
+    os << "File saved successfully !";
     return true;
 }
