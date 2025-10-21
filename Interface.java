@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 
 public class Interface extends JFrame {
 
+    JScrollPane scrollPane;
     JTextArea textArea = new JTextArea("Init Text", 10, 5);
     JButton addLineButton1, addLineButton2, exitButton;
     JPanel buttons = new JPanel();
@@ -19,12 +20,11 @@ public class Interface extends JFrame {
         buttons.add(addLineButton1 = new JButton("Add line 1"));
         buttons.add(addLineButton2 = new JButton("Add line 2"));
         buttons.add(exitButton = new JButton("Close"));
-        add(textArea, BorderLayout.CENTER);
-        add(buttons, BorderLayout.SOUTH);
-
         addLineButton1.addActionListener(new AddLineListener("Added line 1"));
         addLineButton2.addActionListener(new AddLineListener("Added line 2"));
         exitButton.addActionListener(new CloseListener());
+        add(scrollPane = new JScrollPane(textArea), BorderLayout.CENTER);
+        add(buttons, BorderLayout.SOUTH);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         pack();
