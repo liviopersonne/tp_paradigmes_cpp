@@ -6,3 +6,4 @@ client
 depend-client
 depend-server
 server
+oracleJdk-25
